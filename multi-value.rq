@@ -10,8 +10,8 @@ select ?subj ?obj ?service {
       bind(replace(replace(?_services, concat("^([^ ]* ){", str(?n) ,"}"), ""), " .*", "") as ?v)
       filter(?v != "")
     }
-      bind(uri(?v) as ?service)
   }
+      bind(uri(?v) as ?service)
   service ?service {
     ?subj <http://purl.org/nanopub/admin/hasNanpubCount> ?obj .
   }
