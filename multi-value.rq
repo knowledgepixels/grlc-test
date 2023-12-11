@@ -1,0 +1,17 @@
+#+ summary: Testing multi-value placeholder hack...
+#+ endpoint: https://query.knowledgepixels.com/repo/meta
+#+ method: GET
+
+select ?subj ?obj ?service {
+  {
+    select distinct ?service {
+      values ?n { 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 }
+      bind(replace(replace(?_services, concat("^([^ ]* ){", str(?n) ,"}"), ""), " .*", "") as ?p)
+      filter(?p != "")
+      bind(uri(?p) as ?service)
+    }
+  }
+  service ?service {
+    ?subj <http://purl.org/nanopub/admin/hasNanpubCount> ?obj .
+  }
+}
