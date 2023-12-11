@@ -4,8 +4,8 @@
 
 select ?subj ?obj ?service {
   { select distinct ?service {
-      optional { <foo:> <foo:> ?_services }
-      values ?n { 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 }
+      optional { <foo:> <foo:> ?_services }  # This is needed for grlc to pick up the placeholder ?_services
+      values ?n { 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 }  # Limit of 20 URIs in list
       bind(replace(replace(?_services, concat("^([^ ]* ){", str(?n) ,"}"), ""), " .*", "") as ?v)
       filter(?v != "")
       bind(uri(?v) as ?service)
