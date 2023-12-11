@@ -4,13 +4,13 @@
 
 select ?subj ?obj ?service {
   {
-    select distinct ?service {
+    select distinct ?v {
       optional { <http://foo.bar> <http://foo.bar> ?_services }
       values ?n { 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 }
       bind(replace(replace(?_services, concat("^([^ ]* ){", str(?n) ,"}"), ""), " .*", "") as ?v)
       filter(?v != "")
-      bind(uri(?v) as ?service)
     }
+      bind(uri(?v) as ?service)
   }
   service ?service {
     ?subj <http://purl.org/nanopub/admin/hasNanpubCount> ?obj .
