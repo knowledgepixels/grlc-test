@@ -1,0 +1,5 @@
+# minimal test
+
+select * where {
+  ?a ?b ?c .
+} limit 10
