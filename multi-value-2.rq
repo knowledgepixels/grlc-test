@@ -4,7 +4,7 @@
 
 select ?value ?uri {
   # Copy the block below into your SPARQL query to have a multi-value placeholder for grlc.
-  # Optionally, rename the variables
+  # Optionally, rename the variables and/or change the separator.
 
   #=========================== MULTI-VALUE PLACEHOLDER ============================#
   { select ?value {                                                                # <- VARIABLE value
