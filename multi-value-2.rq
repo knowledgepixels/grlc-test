@@ -18,5 +18,5 @@ select ?value ?uri {
     bind(replace(if(?n=0, ?vs, replace(?vs, concat("^([^ ]* ){",str(?n),"}"), "")), " .*", "") as ?value)     # <- VARIABLE value
   } }
   #===============================#
-  bind(uri(?value)) as ?uri)
+  bind(uri(?value) as ?uri)
 }
