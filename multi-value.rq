@@ -1,4 +1,4 @@
-#+ summary: Multi-value placeholder hack...
+#+ summary: Multi-value placeholder hack
 #+ method: GET
 #+ description: Tested with Virtuoso and RDF4J SPARQL endpoints.
 
