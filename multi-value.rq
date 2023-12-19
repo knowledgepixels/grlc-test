@@ -13,7 +13,7 @@ select ?value ?uri {
     {select*{optional{?a ?b ?c}}limit 1} # (for some Virtuoso ver.)  #
     values ?x {0 1 2 3 4 5 6 7 8 9} values ?y {0 1 2 3 4 5 6 7 8 9}  #
     bind((10*?x)+?y as ?n) # (works up to a maximum of 100 values)   #
-    bind(":" as ?sep) # (separator as single regex-compatible char)  # <- CONST sep
+    bind(" " as ?sep) # (separator as single regex-compatible char)  # <- CONST sep
     bind(concat("^([^",?sep,"]*",?sep,"){",str(?n),"}") as ?p)       #
     bind(concat(?sep,".*") as ?p0)                                   #
     filter(if(?n=0,true,regex(?vs,?p))) # (?n=0 check for Viruoso)   #
