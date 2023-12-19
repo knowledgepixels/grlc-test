@@ -8,10 +8,10 @@ select ?n ?value ?uri {
 
   #=========================== MULTI-VALUE PLACEHOLDER ============================#
   { select ?value ?n {                                                                # <- VAR value
-    { select * { optional { ?a ?b ?c } } limit 1 }                                 #
     bind(" " as ?separator)                                                        # <- CONST separator
     bind(?_placeholder as ?vs)                                                     # <- VAR _placeholder
     optional { <x:> <x:> ?_placeholder }                                           # <- VAR _placeholder
+    { select * { optional { ?a ?b ?c } } limit 1 }                                 #
     values ?x{0 1 2 3 4 5 6 7 8 9} values ?y{0 1 2 3 4 5 6 7 8 9} bind((10*?x)+?y as ?n)  
     bind(concat("^([^ ]*",?separator,"){",str(?n),"}") as ?pattern)                #
     filter(if(?n=0, true, regex(?vs, ?pattern)))                                   #
