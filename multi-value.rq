@@ -11,7 +11,7 @@ select ?value ?uri {
     bind(?_placeholder as ?v)                                      # <- VAR _placeholder
     optional { <x:> <x:> ?_placeholder } # (for grlc to pick it up)  # <- VAR _placeholder
     {select*{optional{?a ?b ?c}}limit 1} # (for some Virtuoso v.)  #
-    values ?x{0 1 2 3 4 5 6 7 8 9} values ?y{0 1 2 3 4 5 6 7 8 9}  #
+    values ?x {0 1 2 3 4 5 6 7 8 9} values ?y {0 1 2 3 4 5 6 7 8 9}  #
     bind((10*?x)+?y as ?n) # (works for a maximum of 100 values)   #
     bind(" " as ?sep) # (separator as regex-compatible character)  # <- CONST sep
     bind(concat("^([^",?sep,"]*",?sep,"){",str(?n),"}") as ?p)     #
