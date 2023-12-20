@@ -15,7 +15,7 @@ select ?value ?uri {
     bind(" " as ?sep) # (separator as regex-compatible character)  # <- CONST sep
     bind(concat("^([^",?sep,"]*",?sep,"){",str(?n),"}") as ?p)     #
     bind(concat(?sep,".*") as ?p0)                                 #
-    bind(coalesce(?_placeholder) as ?v )                                      # <- VAR _placeholder
+    bind(coalesce( ?_placeholder ) as ?v )                                      # <- VAR _placeholder
     filter(if(?n=0,true,regex(?v,?p))) # (=0 check for Virtuoso)   #
     bind(replace(if(?n=0,?v,replace(?v,?p,"")),?p0,"") as ?value)  # <- VAR value
   } }                                                              #
