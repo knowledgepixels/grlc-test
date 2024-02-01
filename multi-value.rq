@@ -3,7 +3,7 @@
 #+ description: Tested with Virtuoso and RDF4J SPARQL endpoints.
 
 select ?value ?uri {
-  # Copy the block below into at the top of your SPARQL query to have a multi-value
+  # Copy the block below at the top of your SPARQL query to have a multi-value
   # placeholder for grlc. Optionally, rename the variables and/or change the separator.
 
   #=================== MULTI-VALUE PLACEHOLDER ====================#------ config: ------
