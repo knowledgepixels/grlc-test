@@ -1,4 +1,5 @@
-# test
+#+ defaults:
+#+   - endpoint: https://nanopub.sdsc.edu/repo/full
 
 select * where {
   optional { <x:> <x:> ?__endpoint_iri } .
