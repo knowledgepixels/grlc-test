@@ -1,0 +1,6 @@
+# test
+
+select * where {
+  optional { <x:> <x:> ?_endpoint_iri } .
+  ?a ?b ?c .
+} limit 10
