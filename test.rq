@@ -3,6 +3,6 @@
 
 select * where {
   optional { <x:> <x:> ?__endpoint_iri } .
-  bind(coalesce(?__endpoint_iri, <https://nanopub.sdsc.edu/repo/full>) as ?ep)
+  bind(coalesce(?__endpoint_iri, <https://nanopub.sdsc.edu/repo/full>) as ?endpoint)
   ?a ?b ?c .
 } limit 10
