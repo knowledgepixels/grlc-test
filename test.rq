@@ -2,5 +2,6 @@
 
 select * where {
   optional { <x:> <x:> ?_endpoint_iri } .
+  bind(?_endpoint_iri as ?t)
   ?a ?b ?c .
 } limit 10
