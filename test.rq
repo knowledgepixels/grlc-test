@@ -1,9 +1,6 @@
 #+ defaults:
 #+   - endpoint: https://nanopub.sdsc.edu/repo/full
 
-select * where {
-  optional { <x:> <x:> ?__endpoint_iri } .
-  bind(coalesce(?__endpoint_iri, <https://nanopub.sdsc.edu/repo/full>) as ?endpoint)
-  bind(iri(replace(str(?endpoint), "repo/[a-zA-Z0-9]+$", "")) as ?service)
-  ?a ?b ?c .
-} limit 10
+select ?endpoint where {
+  bind(?__endpoint_iri as ?endpoint .
+}
