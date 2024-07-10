@@ -1,0 +1,25 @@
+#+ summary: Multi-value placeholder hack
+#+ method: GET
+#+ description: Tested with Virtuoso and RDF4J SPARQL endpoints.
+
+select ?value ?uri {
+  # Copy the block below at the top of your SPARQL query to have a multi-value
+  # placeholder for grlc. Optionally, rename the variables and/or change the separator.
+
+  #=================== MULTI-VALUE PLACEHOLDER ====================#------ config: ------
+  { select ?value {                                                # <- VAR value
+    bind( ?_placeholder as ?v )                                    # <- VAR _placeholder
+    {select*{optional{?a ?b ?c}}limit 1} # (for some Virtuoso v.)  #
+    values ?x{0 1 2 3 4 5 6 7 8 9} values ?y{0 1 2 3 4 5 6 7 8 9}  #
+    bind((10*?x)+?y as ?n) # (works for a maximum of 100 values)   #
+    bind(" " as ?sep) # (separator as regex-compatible character)  # <- CONST sep
+    bind(concat("^([^",?sep,"]*",?sep,"){",str(?n),"}") as ?p)     #
+    bind(concat(?sep,".*") as ?p0)                                 #
+    filter(if(?n=0,true,regex(?v,?p))) # (=0 check for Virtuoso)   #
+    bind(replace(if(?n=0,?v,replace(?v,?p,"")),?p0,"") as ?value)  # <- VAR value
+  } }                                                              #
+  #================================================================#---------------------
+
+  # The value is a literal. You can make a URI out of it like this:
+  bind(uri(?value) as ?uri)
+}
