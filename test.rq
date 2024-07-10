@@ -2,5 +2,5 @@
 #+   - endpoint: https://nanopub.sdsc.edu/repo/full
 
 select ?endpoint where {
-  bind(?__endpoint_iri as ?endpoint .
+  bind(?__endpoint_iri as ?endpoint)
 }
