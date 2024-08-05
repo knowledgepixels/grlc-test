@@ -2,6 +2,8 @@
 #+ description: "This query returns the latest nanopublications from the given set of pubkey hashes."
 #+ licence: http://www.apache.org/licenses/LICENSE-2.0
 #+ endpoint: https://query.knowledgepixels.com/repo/empty
+#+ defaults:
+#+   - endpoint: https://query.knowledgepixels.com/repo/empty
 
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix np: <http://www.nanopub.org/nschema#>
