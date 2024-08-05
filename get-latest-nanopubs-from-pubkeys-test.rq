@@ -14,8 +14,8 @@ prefix dct: <http://purl.org/dc/terms/>
 
 select ?np ?label ?pubkey ?date where {
 
-  optional { <x:> <x:> ?_endpoint_iri } .  # for grlc to pick up the placeholder
-  bind(replace(str(?_endpoint_iri), "/repo/.*$", "/repo/") as ?servicebase)
+  optional { <x:> <x:> ?__endpoint_iri } .  # for grlc to pick up the placeholder
+  bind(replace(str(?__endpoint_iri), "/repo/.*$", "/repo/") as ?servicebase)
 
   #==================== MULTI-VALUE PLACEHOLDER =====================#------ config: ------
   { select ?pkh {                                                    # <- VAR pkh
