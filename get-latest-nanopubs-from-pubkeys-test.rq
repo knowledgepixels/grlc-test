@@ -1,0 +1,45 @@
+#+ summary: "Get the latest nanopublications from pubkeys"
+#+ description: "This query returns the latest nanopublications from the given set of pubkey hashes."
+#+ licence: http://www.apache.org/licenses/LICENSE-2.0
+#+ endpoint: https://query.knowledgepixels.com/repo/empty
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix np: <http://www.nanopub.org/nschema#>
+prefix npa: <http://purl.org/nanopub/admin/>
+prefix npx: <http://purl.org/nanopub/x/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix dct: <http://purl.org/dc/terms/>
+
+select ?np ?label ?pubkey ?date where {
+
+  optional { <x:> <x:> ?_endpoint_iri } .  # for grlc to pick up the placeholder
+  bind(replace(str(?_endpoint_iri), "/repo/.*$", "/repo/") as ?servicebase)
+
+  #==================== MULTI-VALUE PLACEHOLDER =====================#------ config: ------
+  { select ?pkh {                                                    # <- VAR pkh
+    bind(?_pubkeyhashes as ?vs)                                      # <- VAR _pubkeyhashes
+    {select*{optional{?a ?b ?c}}limit 1} # (for some Virtuoso ver.)  #
+    values ?x {0 1 2 3 4 5 6 7 8 9} values ?y {0 1 2 3 4 5 6 7 8 9}  #
+    bind((10*?x)+?y as ?n) # (works up to a maximum of 100 values)   #
+    bind(" " as ?sep) # (separator as single regex-compatible char)  # <- CONST sep
+    bind(concat("^([^",?sep,"]*",?sep,"){",str(?n),"}") as ?p)       #
+    bind(concat(?sep,".*") as ?p0)                                   #
+    filter(if(?n=0,true,regex(?vs,?p))) # (?n=0 check for Viruoso)   #
+    bind(replace(if(?n=0,?vs,replace(?vs,?p,"")),?p0,"") as ?pkh)    # <- VAR pkh
+  } }                                                                #
+  #==================================================================#---------------------
+  bind(uri(concat(?servicebase, "pubkey/", ?pkh)) as ?service)
+  
+  service ?service {
+    graph npa:graph {
+      ?np rdfs:label ?label ;
+          npa:hasValidSignatureForPublicKey ?pubkey ;
+          dct:created ?date .
+      filter not exists { ?npx npx:invalidates ?np ; npa:hasValidSignatureForPublicKey ?pubkeyx . filter(contains(?_pubkeyhashes, sha256(str(?pubkeyx)))) }
+      filter not exists { ?np npx:hasNanopubType npx:ExampleNanopub . }
+      filter not exists { ?np npx:hasNanopubType npx:retracts . }
+    }
+  }
+}
+order by desc(?date)
+limit 100
