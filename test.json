@@ -1,0 +1,16 @@
+{
+  "proto": {
+      "id": "?person",
+      "name" : "$foaf:name"
+  },
+  "$where": [
+    "?person rdf:type foaf:Person"
+  ],
+  "$orderby": [ "?person" ],
+  "$limit": 10,
+  "grlc": "#+ summary: Testing SPARQL Transformer in grlc\n#+ endpoint: https://query.petapico.org/repo/full\n#+ tags:\n#+   - json\n#+ method: GET\n#+ pagination: 50",
+  "$prefixes": {
+    "foaf" : "http://xmlns.com/foaf/0.1/" ,
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  }
+}
